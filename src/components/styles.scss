@@ -1,0 +1,25 @@
+$blueColor: #1d6db6;
+$blueColor2: #a2d7e6;
+$blueColor3: #679fdb;
+$greenColor: #76b28e;
+$ligthGreen: #abd3be;
+$violetColor: #b28990;
+$yellowColor1: #fdcd4b;
+$yellowColor2: #f09d74;
+$textColor: #696969;
+$bodyColor: #e0f1f3;
+$ligthColor: #fffacd;
+$shadowBlue: #b9d4e7;
+$pinkColor: #e24e69;
+
+@mixin hover {
+  opacity: 1;
+  border: 8px solid;
+}
+
+@mixin reset {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+@import url("https://fonts.googleapis.com/css2?family=Elsie:wght@900&family=Roboto&display=swap");

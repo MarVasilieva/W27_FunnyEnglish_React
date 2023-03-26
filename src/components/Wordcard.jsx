@@ -1,0 +1,1 @@
+import "./Wordcard.css";
