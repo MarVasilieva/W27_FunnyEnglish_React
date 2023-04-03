@@ -1,6 +1,9 @@
 import "./App.css";
 import "./components/Wordcard.css";
 import Wordcard from "./components/Wordcard";
+import Wordlist from "./components/Wordlist";
+import Table from "./components/Wordlist";
+import "./components/Wordlist.css";
 
 const words = [
   {
@@ -43,14 +46,19 @@ const words = [
 function App(props) {
   return (
     <div className="App">
-      {words.map((word) => (
-        <Wordcard
-          title={word.title}
-          transcription={word.transcription}
-          translation={word.translation}
-          url={word.url}
-        ></Wordcard>
-      ))}
+      <div className="wordsCards">
+        {words.map((word) => (
+          <Wordcard
+            title={word.title}
+            transcription={word.transcription}
+            translation={word.translation}
+            url={word.url}
+          ></Wordcard>
+        ))}
+      </div>
+      <div className="wordsTable">
+        <Table />
+      </div>
     </div>
   );
 }

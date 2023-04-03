@@ -1,0 +1,44 @@
+table {
+  background-color: transparent;
+  border-spacing: 0 10px;
+  width: 100%;
+}
+th {
+  padding: 10px 20px;
+  background: #5c93c6;
+  height: 0px;
+  color: #2d5f9c;
+  width: 100%;
+  box-shadow: 5px 5px 9px 0px rgba(17, 29, 39, 0.2);
+  text-shadow: 0 1px 1px #2d2020;
+  font-size: 18px;
+}
+td {
+  height: 15px;
+  width: 100%;
+  color: #1d6db6;
+  vertical-align: middle;
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+  background-color: rgb(221, 226, 231);
+  opacity: 80%;
+  padding: 10px 20px;
+  box-shadow: 5px 5px 9px 0px rgba(17, 29, 39, 0.2);
+}
+th:first-child {
+  border-top-left-radius: 10px;
+}
+th:last-child {
+  border-top-right-radius: 10px;
+  border-right: none;
+}
+tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}
+tr:last-child td:last-child {
+  border-radius: 0 0 10px 0;
+}
+tr td:last-child {
+  border-right: none;
+}
