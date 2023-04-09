@@ -4,7 +4,6 @@ import React, { useState } from "react";
 
 function Wordcard(props) {
   const [isShowButton, setButton] = useState(true);
-
   return (
     <div className="word">
       <div className="wordTitle">
@@ -27,5 +26,4 @@ function Wordcard(props) {
     </div>
   );
 }
-
 export default Wordcard;
