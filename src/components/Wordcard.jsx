@@ -1,9 +1,10 @@
 import "./Wordcard.css";
 import "./styles.scss";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function Wordcard(props) {
   const [isShowButton, setButton] = useState(true);
+  useEffect(() => setButton(true), [props.translation]);
   return (
     <div className="word">
       <div className="wordTitle">
