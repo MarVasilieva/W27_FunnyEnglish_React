@@ -2,6 +2,7 @@ table {
   background-color: transparent;
   border-spacing: 0 10px;
   width: 100%;
+  padding-top: 90px;
 }
 th {
   padding: 10px 20px;

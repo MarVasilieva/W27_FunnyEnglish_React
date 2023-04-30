@@ -1,6 +1,6 @@
 .word {
   width: 400px;
-  height: 470px;
+  height: 530px;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -16,4 +16,7 @@ img {
   width: 230px;
   height: 220px;
   border-radius: 3px;
+}
+.wordsCards {
+  padding-top: 90px;
 }

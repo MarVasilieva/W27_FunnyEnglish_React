@@ -1,0 +1,23 @@
+.App-header {
+  display: flex;
+  flex-direction: row;
+  position: fixed;
+  top: 0;
+  z-index: 100;
+  width: 95vw;
+}
+.App-nav {
+  display: flex;
+  flex-direction: row;
+  font-size: large;
+  width: 90vw;
+  padding-left: 80px;
+  height: 10vh;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+.App-nav img {
+  width: 300px;
+  height: 40px;
+}
