@@ -6,7 +6,7 @@ table {
 }
 th {
   padding: 10px 20px;
-  background: #5c93c6;
+  background: #c88ebc;
   height: 0px;
   color: #2d5f9c;
   width: 100%;
@@ -17,12 +17,12 @@ th {
 td {
   height: 15px;
   width: 100%;
-  color: #1d6db6;
+  color: #2e9bb1;
   vertical-align: middle;
   font-size: 24px;
   font-weight: 600;
   text-align: center;
-  background-color: rgb(221, 226, 231);
+  background-color: rgb(249, 235, 235);
   opacity: 80%;
   padding: 10px 20px;
   box-shadow: 5px 5px 9px 0px rgba(17, 29, 39, 0.2);
