@@ -9,6 +9,7 @@ import words from "./words.json";
 const Cards = () => {
   const [index, setIndex] = useState(0);
   const [isPrev, setIsPrev] = useState(false);
+  const [count, setCount] = useState(0);
 
   const handlePrev = () => {
     setIndex((prevIndex) =>
@@ -45,6 +46,8 @@ const Cards = () => {
         translation={Word.translation}
         url={Word.url}
         isPrev={isPrev}
+        setCount={setCount}
+        count={count}
       />
       <Wordcard
         title={Word2.title}
@@ -52,6 +55,8 @@ const Cards = () => {
         translation={Word2.translation}
         url={Word2.url}
         isPrev={isPrev}
+        setCount={setCount}
+        count={count}
       />
       <Wordcard
         title={Word3.title}
@@ -59,13 +64,18 @@ const Cards = () => {
         translation={Word3.translation}
         url={Word3.url}
         isPrev={isPrev}
+        setCount={setCount}
+        count={count}
       />
       <div>
         <button className="btn" onClick={handleNext}>
           Следующая
         </button>
       </div>
-      {index + 1}/{words.length}
+      <div>
+        {index + 1}/{words.length}
+      </div>
+      <div className="counter">Выучено слов: {count}</div>
     </div>
   );
 };

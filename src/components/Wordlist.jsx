@@ -20,12 +20,31 @@ const Table = () => {
     },
   ]);
   const [editingId, setEditingId] = useState(null);
+  const [emptyFields, setEmptyFields] = useState([]);
 
   const handleEdit = (id) => {
     setEditingId(id);
   };
 
   const handleSave = (id, newWord, newTranscription, newTranslation) => {
+    if (
+      typeof newWord !== "string" ||
+      typeof newTranscription !== "string" ||
+      typeof newTranslation !== "string"
+    ) {
+      alert("Тип данных некорректный!");
+      return;
+    }
+
+    if (
+      newWord.trim() === "" ||
+      newTranscription.trim() === "" ||
+      newTranslation.trim() === ""
+    ) {
+      setEmptyFields([id]);
+      return;
+    }
+
     const newData = data.map((item) => {
       if (item.id === id) {
         return {
@@ -39,6 +58,7 @@ const Table = () => {
     });
     setData(newData);
     setEditingId(null);
+    setEmptyFields([]);
   };
 
   const handleDelete = (id) => {
@@ -48,12 +68,44 @@ const Table = () => {
 
   const handleAdd = () => {
     const newId = data.length + 1;
-    const newData = [
-      ...data,
+    setData((prevData) => [
+      ...prevData,
       { id: newId, word: "", transcription: "", translation: "" },
-    ];
-    setData(newData);
+    ]);
     setEditingId(newId);
+  };
+
+  const handleChangeWord = (id, value) => {
+    setData((prevData) =>
+      prevData.map((item) => {
+        if (item.id === id) {
+          return { ...item, word: value };
+        }
+        return item;
+      })
+    );
+  };
+
+  const handleChangeTranscription = (id, value) => {
+    setData((prevData) =>
+      prevData.map((item) => {
+        if (item.id === id) {
+          return { ...item, transcription: value };
+        }
+        return item;
+      })
+    );
+  };
+
+  const handleChangeTranslation = (id, value) => {
+    setData((prevData) =>
+      prevData.map((item) => {
+        if (item.id === id) {
+          return { ...item, translation: value };
+        }
+        return item;
+      })
+    );
   };
 
   return (
@@ -66,17 +118,16 @@ const Table = () => {
           <th colSpan={2}>Редактировать</th>
         </tr>
       </thead>
-      <tbody
-        className="
-      bodyTable"
-      >
+      <tbody className="bodyTable">
         {data.map((item) => (
           <tr key={item.id}>
             <td>
               {editingId === item.id ? (
                 <input
                   type="text"
-                  defaultValue={item.word}
+                  value={item.word}
+                  className={emptyFields.includes(item.id) ? "empty-field" : ""}
+                  onChange={(e) => handleChangeWord(item.id, e.target.value)}
                   onBlur={(e) =>
                     handleSave(
                       item.id,
@@ -94,13 +145,17 @@ const Table = () => {
               {editingId === item.id ? (
                 <input
                   type="text"
-                  defaultValue={item.transcription}
+                  value={item.transcription}
+                  className={emptyFields.includes(item.id) ? "empty-field" : ""}
+                  onChange={(e) =>
+                    handleChangeTranscription(item.id, e.target.value)
+                  }
                   onBlur={(e) =>
                     handleSave(
                       item.id,
                       item.word,
-                      item.transcription,
-                      e.target.value
+                      e.target.value,
+                      item.translation
                     )
                   }
                 />
@@ -112,7 +167,11 @@ const Table = () => {
               {editingId === item.id ? (
                 <input
                   type="text"
-                  defaultValue={item.translation}
+                  value={item.translation}
+                  className={emptyFields.includes(item.id) ? "empty-field" : ""}
+                  onChange={(e) =>
+                    handleChangeTranslation(item.id, e.target.value)
+                  }
                   onBlur={(e) =>
                     handleSave(
                       item.id,
@@ -138,13 +197,13 @@ const Table = () => {
                       item.translation
                     )
                   }
+                  disabled={emptyFields.includes(item.id)}
                 >
-                  {" "}
                   Сохранить
                 </button>
               ) : (
                 <button className="btn" onClick={() => handleEdit(item.id)}>
-                  Редактировать{" "}
+                  Редактировать
                 </button>
               )}
             </td>
@@ -157,13 +216,28 @@ const Table = () => {
         ))}
         <tr>
           <td>
-            <input type="text" placeholder="Введите слово" />
+            <input
+              type="text"
+              placeholder="Введите слово"
+              value=""
+              onChange={(e) => handleChangeWord(null, e.target.value)}
+            />
           </td>
           <td>
-            <input type="text" placeholder="Введите транскрипцию" />
+            <input
+              type="text"
+              placeholder="Введите транскрипцию"
+              value=""
+              onChange={(e) => handleChangeTranscription(null, e.target.value)}
+            />
           </td>
           <td>
-            <input type="text" placeholder="Введите перевод" />
+            <input
+              type="text"
+              placeholder="Введите перевод"
+              value=""
+              onChange={(e) => handleChangeTranslation(null, e.target.value)}
+            />
           </td>
           <td colSpan={2}>
             <button className="btn" onClick={handleAdd}>

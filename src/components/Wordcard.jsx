@@ -4,22 +4,21 @@ import React, { useState, useEffect, useRef } from "react";
 
 function Wordcard(props) {
   const [isShowButton, setButton] = useState(true);
-  const [count, setCount] = useState(0);
 
   useEffect(() => setButton(true), [props.translation]);
 
   const handleButtonClick = () => {
     setButton(!isShowButton);
-    setCount(count + 1);
+    if (isShowButton) {
+      props.setCount(props.count + 1);
+    }
   };
 
   const buttonRef = useRef(null);
 
   useEffect(() => {
-    if (isShowButton) {
-      buttonRef.current.focus();
-    }
-  }, [isShowButton]);
+    buttonRef.current.focus();
+  }, []);
 
   return (
     <div className="word">
@@ -40,7 +39,6 @@ function Wordcard(props) {
           </h3>
         )}
       </div>
-      <div className="counter">Счетчик: {count}</div>
     </div>
   );
 }
