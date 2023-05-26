@@ -1,10 +1,12 @@
 import "./Wordcard.css";
 import "./styles.scss";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
+import { WordContext } from "./WordContext.jsx";
 
 function Wordcard(props) {
   const [isShowButton, setButton] = useState(true);
-
+  const { data } = useContext(WordContext);
+  console.log(data);
   useEffect(() => setButton(true), [props.translation]);
 
   const handleButtonClick = () => {
