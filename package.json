@@ -2,6 +2,7 @@
   "name": "funnyenglish",
   "version": "0.1.0",
   "private": true,
+  "proxy": "http://itgirlschool.justmakeit.ru",
   "dependencies": {
     "@emotion/react": "^11.10.6",
     "@table-library/react-table-library": "^4.1.0",
@@ -20,6 +21,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
+  
   "eslintConfig": {
     "extends": [
       "react-app",

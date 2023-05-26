@@ -1,24 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./styles.scss";
 import "./Wordlist.css";
+import { WordContext } from "./WordContext.jsx";
+import WordRow from "./WordRow.jsx";
 
 const Table = () => {
-  const [data, setData] = useState([
-    { id: 1, word: "Dog", transcription: "[dɔːɡ]", translation: "СОБАКА" },
-    { id: 2, word: "Duck", transcription: "[dʌk]", translation: "УТКА" },
-    {
-      id: 3,
-      word: "Chicken",
-      transcription: "['tʃɪkɪn]",
-      translation: "КУРИЦА",
-    },
-    {
-      id: 4,
-      word: "Horse",
-      transcription: "[hɔ:s]",
-      translation: "ЛОШАДЬ",
-    },
-  ]);
+  const { data } = useContext(WordContext);
   const [editingId, setEditingId] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -27,15 +14,6 @@ const Table = () => {
   };
 
   const handleSave = (id, newWord, newTranscription, newTranslation) => {
-    if (
-      typeof newWord !== "string" ||
-      typeof newTranscription !== "string" ||
-      typeof newTranslation !== "string"
-    ) {
-      alert("Тип данных некорректный!");
-      return;
-    }
-
     if (
       newWord.trim() === "" ||
       newTranscription.trim() === "" ||
@@ -56,56 +34,30 @@ const Table = () => {
       }
       return item;
     });
-    setData(newData);
     setEditingId(null);
     setEmptyFields([]);
   };
 
   const handleDelete = (id) => {
     const newData = data.filter((item) => item.id !== id);
-    setData(newData);
+    setEditingId(null);
   };
 
   const handleAdd = () => {
     const newId = data.length + 1;
-    setData((prevData) => [
-      ...prevData,
-      { id: newId, word: "", transcription: "", translation: "" },
-    ]);
     setEditingId(newId);
   };
 
   const handleChangeWord = (id, value) => {
-    setData((prevData) =>
-      prevData.map((item) => {
-        if (item.id === id) {
-          return { ...item, word: value };
-        }
-        return item;
-      })
-    );
+    // ...
   };
 
   const handleChangeTranscription = (id, value) => {
-    setData((prevData) =>
-      prevData.map((item) => {
-        if (item.id === id) {
-          return { ...item, transcription: value };
-        }
-        return item;
-      })
-    );
+    // ...
   };
 
   const handleChangeTranslation = (id, value) => {
-    setData((prevData) =>
-      prevData.map((item) => {
-        if (item.id === id) {
-          return { ...item, translation: value };
-        }
-        return item;
-      })
-    );
+    // ...
   };
 
   return (
@@ -120,99 +72,18 @@ const Table = () => {
       </thead>
       <tbody className="bodyTable">
         {data.map((item) => (
-          <tr key={item.id}>
-            <td>
-              {editingId === item.id ? (
-                <input
-                  type="text"
-                  value={item.word}
-                  className={emptyFields.includes(item.id) ? "empty-field" : ""}
-                  onChange={(e) => handleChangeWord(item.id, e.target.value)}
-                  onBlur={(e) =>
-                    handleSave(
-                      item.id,
-                      e.target.value,
-                      item.transcription,
-                      item.translation
-                    )
-                  }
-                />
-              ) : (
-                item.word
-              )}
-            </td>
-            <td>
-              {editingId === item.id ? (
-                <input
-                  type="text"
-                  value={item.transcription}
-                  className={emptyFields.includes(item.id) ? "empty-field" : ""}
-                  onChange={(e) =>
-                    handleChangeTranscription(item.id, e.target.value)
-                  }
-                  onBlur={(e) =>
-                    handleSave(
-                      item.id,
-                      item.word,
-                      e.target.value,
-                      item.translation
-                    )
-                  }
-                />
-              ) : (
-                item.transcription
-              )}
-            </td>
-            <td>
-              {editingId === item.id ? (
-                <input
-                  type="text"
-                  value={item.translation}
-                  className={emptyFields.includes(item.id) ? "empty-field" : ""}
-                  onChange={(e) =>
-                    handleChangeTranslation(item.id, e.target.value)
-                  }
-                  onBlur={(e) =>
-                    handleSave(
-                      item.id,
-                      item.word,
-                      item.transcription,
-                      e.target.value
-                    )
-                  }
-                />
-              ) : (
-                item.translation
-              )}
-            </td>
-            <td>
-              {editingId === item.id ? (
-                <button
-                  className="btn"
-                  onClick={() =>
-                    handleSave(
-                      item.id,
-                      item.word,
-                      item.transcription,
-                      item.translation
-                    )
-                  }
-                  disabled={emptyFields.includes(item.id)}
-                >
-                  Сохранить
-                </button>
-              ) : (
-                <button className="btn" onClick={() => handleEdit(item.id)}>
-                  Редактировать
-                </button>
-              )}
-            </td>
-            <td>
-              <button className="btn" onClick={() => handleDelete(item.id)}>
-                Удалить
-              </button>
-            </td>
-          </tr>
+          <WordRow
+            key={item.id}
+            item={item}
+            editingId={editingId}
+            emptyFields={emptyFields}
+            onEdit={handleEdit}
+            onSave={handleSave}
+            onDelete={handleDelete}
+            onChangeWord={handleChangeWord}
+            onChangeTranscription={handleChangeTranscription}
+            onChangeTranslation={handleChangeTranslation}
+          />
         ))}
         <tr>
           <td>
