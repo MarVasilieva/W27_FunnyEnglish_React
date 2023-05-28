@@ -6,7 +6,6 @@ import { WordContext } from "./WordContext.jsx";
 function Wordcard(props) {
   const [isShowButton, setButton] = useState(true);
   const { data } = useContext(WordContext);
-  console.log(data);
   useEffect(() => setButton(true), [props.translation]);
 
   const handleButtonClick = () => {
@@ -25,7 +24,7 @@ function Wordcard(props) {
   return (
     <div className="word">
       <div className="wordTitle">
-        <h1>{props.title}</h1>
+        <h1>{props.english}</h1>
       </div>
       <div className="wordTranscription">
         <h3>{props.transcription}</h3>
@@ -37,7 +36,7 @@ function Wordcard(props) {
           </button>
         ) : (
           <h3 onClick={handleButtonClick}>
-            <h3>{props.translation}</h3> <img src={props.url} alt="" />
+            <h3>{props.russian}</h3>
           </h3>
         )}
       </div>

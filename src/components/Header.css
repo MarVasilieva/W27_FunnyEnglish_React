@@ -4,20 +4,37 @@
   position: fixed;
   top: 0;
   z-index: 100;
-  width: 95vw;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.9);
+  opacity: 22;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
+
 .App-nav {
   display: flex;
   flex-direction: row;
-  font-size: large;
-  width: 90vw;
-  padding-left: 80px;
-  height: 10vh;
-  flex-wrap: wrap;
+  font-size: 1.2rem;
+  width: 100%;
+  padding: 0 20px;
+  height: 60px;
   align-items: center;
   justify-content: space-between;
+  background-color: rgba(236, 170, 62, 0.5);
+  backdrop-filter: blur(10px);
 }
+
 .App-nav img {
-  width: 300px;
-  height: 40px;
+  width: 150px;
+  height: auto;
+}
+
+.App-nav a {
+  color: rgb(123, 46, 153);
+  text-decoration: none;
+  margin-right: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.App-nav a:hover {
+  color: #000;
 }
