@@ -1,37 +1,37 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import "./Wordcard.css";
 import "./styles.scss";
 import "../App.css";
 import Wordcard from "./Wordcard";
 import "./Wordlist";
-import words from "./words.json";
 
+import { WordContext } from "./WordContext";
 const Cards = () => {
   const [index, setIndex] = useState(0);
   const [isPrev, setIsPrev] = useState(false);
   const [count, setCount] = useState(0);
-
+  const { data } = useContext(WordContext);
   const handlePrev = () => {
     setIndex((prevIndex) =>
-      prevIndex === 0 ? words.length - 1 : prevIndex - 1
+      prevIndex === 0 ? data.length - 1 : prevIndex - 1
     );
     setIsPrev(true);
   };
 
   const handleNext = () => {
     setIndex((prevIndex) =>
-      prevIndex === words.length - 1 ? 0 : prevIndex + 1
+      prevIndex === data.length - 1 ? 0 : prevIndex + 1
     );
     setIsPrev(false);
   };
 
   const getWord = (currentIndex) => {
-    return words[currentIndex];
+    return data[currentIndex];
   };
 
   const Word = getWord(index);
-  const Word2 = getWord(index + 1 >= words.length ? 0 : index + 1);
-  const Word3 = getWord(index + 2 >= words.length ? 1 : index + 2);
+  const Word2 = getWord(index + 1 >= data.length ? 0 : index + 1);
+  const Word3 = getWord(index + 2 >= data.length ? 1 : index + 2);
 
   return (
     <div className="wordsCards">
@@ -41,27 +41,27 @@ const Cards = () => {
         </button>
       </div>
       <Wordcard
-        title={Word.title}
+        english={Word.english}
         transcription={Word.transcription}
-        translation={Word.translation}
+        russian={Word.russian}
         url={Word.url}
         isPrev={isPrev}
         setCount={setCount}
         count={count}
       />
       <Wordcard
-        title={Word2.title}
+        english={Word2.english}
         transcription={Word2.transcription}
-        translation={Word2.translation}
+        russian={Word2.russian}
         url={Word2.url}
         isPrev={isPrev}
         setCount={setCount}
         count={count}
       />
       <Wordcard
-        title={Word3.title}
+        english={Word3.english}
         transcription={Word3.transcription}
-        translation={Word3.translation}
+        russian={Word3.russian}
         url={Word3.url}
         isPrev={isPrev}
         setCount={setCount}
@@ -72,9 +72,7 @@ const Cards = () => {
           Следующая
         </button>
       </div>
-      <div>
-        {index + 1}/{words.length}
-      </div>
+      {index + 1}/{data.length}
       <div className="counter">Выучено слов: {count}</div>
     </div>
   );
