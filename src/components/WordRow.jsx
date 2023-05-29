@@ -10,15 +10,9 @@ const WordRow = ({
   onChangeWord,
   onChangeTranscription,
   onChangeTranslation,
-  fetchWords, // Функция для обновления таблицы слов
 }) => {
   const handleSave = (id, newWord, newTranscription, newTranslation) => {
     onSave(id, newWord, newTranscription, newTranslation);
-    if (id === "new") {
-      addNewWord(newWord, newTranscription, newTranslation);
-    } else {
-      updateWord(id, newWord, newTranscription, newTranslation);
-    }
   };
 
   const handleChangeWord = (id, value) => {
@@ -34,74 +28,7 @@ const WordRow = ({
   };
 
   const handleDelete = (id) => {
-    deleteWord(id);
-  };
-
-  const addNewWord = (word, transcription, translation) => {
-    fetch("http://itgirlschool.justmakeit.ru/api/words/add", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        english: word,
-        transcription: transcription,
-        russian: translation,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("New word added successfully");
-          fetchWords(); // Обновить таблицу
-        } else {
-          throw new Error("Add request failed");
-        }
-      })
-      .catch((error) => {
-        console.log("Add Error!", error);
-      });
-  };
-
-  const updateWord = (id, word, transcription, translation) => {
-    fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/update`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        english: word,
-        transcription: transcription,
-        russian: translation,
-      }),
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Word updated successfully");
-          fetchWords(); // Обновить таблицу
-        } else {
-          throw new Error("Update request failed");
-        }
-      })
-      .catch((error) => {
-        console.log("Update Error!", error);
-      });
-  };
-
-  const deleteWord = (id) => {
-    fetch(`http://itgirlschool.justmakeit.ru/api/words/${id}/delete`, {
-      method: "POST",
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log("Word deleted successfully");
-          fetchWords(); // Обновить таблицу
-        } else {
-          throw new Error("Delete request failed");
-        }
-      })
-      .catch((error) => {
-        console.log("Delete Error!", error);
-      });
+    onDelete(id);
   };
 
   return (

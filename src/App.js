@@ -16,31 +16,6 @@ function App() {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    fetch("http://itgirlschool.justmakeit.ru/api/words")
-      .then((responce) => {
-        if (responce.ok) {
-          return responce.json();
-        }
-        throw responce;
-      })
-      .then((data) => {
-        setData(data);
-      })
-      .catch((error) => {
-        console.log("This is Error!", error);
-        setError(error);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, []);
-  if (loading) {
-    return <p>Loading....</p>;
-  }
-  if (error) {
-    return <p>Error</p>;
-  }
   return (
     <WordContext.Provider value={{ data }}>
       <Router>
