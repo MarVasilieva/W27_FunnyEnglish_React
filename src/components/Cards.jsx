@@ -2,36 +2,39 @@ import React, { useState, useContext } from "react";
 import "./Wordcard.css";
 import "./styles.scss";
 import "../App.css";
-import Wordcard from "./Wordcard";
+import { Wordcard } from "./Wordcard";
 import "./Wordlist";
+import { observer, inject } from "mobx-react";
 
-import { WordContext } from "./WordContext";
-const Cards = () => {
+const Cards = ({ wordStore }) => {
+  console.log(wordStore);
   const [index, setIndex] = useState(0);
   const [isPrev, setIsPrev] = useState(false);
   const [count, setCount] = useState(0);
-  const { data } = useContext(WordContext);
+
+  const { words } = wordStore; // Получение массива words из wordStore
+
   const handlePrev = () => {
     setIndex((prevIndex) =>
-      prevIndex === 0 ? data.length - 1 : prevIndex - 1
+      prevIndex === 0 ? words.length - 1 : prevIndex - 1
     );
     setIsPrev(true);
   };
 
   const handleNext = () => {
     setIndex((prevIndex) =>
-      prevIndex === data.length - 1 ? 0 : prevIndex + 1
+      prevIndex === words.length - 1 ? 0 : prevIndex + 1
     );
     setIsPrev(false);
   };
 
   const getWord = (currentIndex) => {
-    return data[currentIndex];
+    return words[currentIndex];
   };
 
-  const Word = getWord(index);
-  const Word2 = getWord(index + 1 >= data.length ? 0 : index + 1);
-  const Word3 = getWord(index + 2 >= data.length ? 1 : index + 2);
+  const Word = {};
+  const Word2 = {};
+  const Word3 = {};
 
   return (
     <div className="wordsCards">
@@ -72,10 +75,10 @@ const Cards = () => {
           Следующая
         </button>
       </div>
-      {index + 1}/{data.length}
+      {index + 1}/{words.length}
       <div className="counter">Выучено слов: {count}</div>
     </div>
   );
 };
 
-export default Cards;
+export default inject(["wordStore"])(observer(Cards));

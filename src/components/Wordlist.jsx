@@ -1,11 +1,10 @@
 import React, { useState, useContext } from "react";
 import "./styles.scss";
 import "./Wordlist.css";
-import { WordContext } from "./WordContext.jsx";
 import WordRow from "./WordRow.jsx";
+import { observer, inject } from "mobx-react";
 
-const Table = () => {
-  const { data } = useContext(WordContext);
+const Table = ({ wordStore, word }) => {
   const [editingId, setEditingId] = useState(null);
   const [emptyFields, setEmptyFields] = useState([]);
 
@@ -23,7 +22,7 @@ const Table = () => {
       return;
     }
 
-    const newData = data.map((item) => {
+    const newData = wordStore.words.map((item) => {
       if (item.id === id) {
         return {
           ...item,
@@ -39,12 +38,12 @@ const Table = () => {
   };
 
   const handleDelete = (id) => {
-    const newData = data.filter((item) => item.id !== id);
+    const newData = wordStore.data.filter((item) => item.id !== id);
     setEditingId(null);
   };
 
   const handleAdd = () => {
-    const newId = data.length + 1;
+    const newId = wordStore.data.length + 1;
     setEditingId(newId);
   };
 
@@ -71,7 +70,7 @@ const Table = () => {
         </tr>
       </thead>
       <tbody className="bodyTable">
-        {data.map((item) => (
+        {word.map((item) => (
           <WordRow
             key={item.id}
             item={item}
@@ -121,4 +120,4 @@ const Table = () => {
   );
 };
 
-export default Table;
+export default inject(["wordStore"])(observer(Table));
