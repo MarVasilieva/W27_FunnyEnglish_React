@@ -120,4 +120,4 @@ const Table = ({ wordStore, word }) => {
   );
 };
 
-export default inject(["wordStore"])(observer(Table));
+export default Table;

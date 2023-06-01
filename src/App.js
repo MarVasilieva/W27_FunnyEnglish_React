@@ -6,20 +6,23 @@ import "./components/Header.css";
 import Table from "./components/Wordlist";
 import "./components/Wordlist.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import Cards from "./components/Cards";
+import { Cards } from "./components/Cards";
 import logo from "./img/logo.jpeg";
 import Homepage from "./components/Homepage";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
+import { WordStore } from "./store/WordStore";
+const store = {
+  wordStore: new WordStore(),
+};
 //import WordsApi from "./components/WordsApi.jsx";
-
-function App({ wordStore }) {
+function App() {
   /*const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);*/
 
   useEffect(() => {
-    // wordStore.loadData();
-  }, []);
+    store.wordStore.fetchProjects();
+  });
 
   return (
     <Router>
@@ -45,7 +48,11 @@ function App({ wordStore }) {
           <Routes>
             <Route exact path="/" element={<Homepage />}></Route>
             <Route exact path="/wordlist" element={<Table />}></Route>
-            <Route exact path="/wordcard" element={<Cards />}></Route>
+            <Route
+              exact
+              path="/wordcard"
+              element={<Cards store={store.wordStore} />}
+            ></Route>
             <Route path="*" element={<NotFound />} />
           </Routes>
         </main>
@@ -55,4 +62,4 @@ function App({ wordStore }) {
   );
 }
 
-export default inject(["wordStore"])(observer(App));
+export default App;

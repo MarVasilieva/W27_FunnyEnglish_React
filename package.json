@@ -1,6 +1,7 @@
 {
   "name": "funnyenglish",
   "version": "0.1.0",
+  "proxy": "http://itgirlschool.justmakeit.ru",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.10.6",
@@ -135,16 +136,7 @@
     ],
     "resetMocks": true
   },
-  "proxy": {
-    "/search": {
-      "target": "https://www.google.com",
-      "changeOrigin": true
-    },
-    "/api": {
-      "target": "http://itgirlschool.justmakeit.ru",
-      "changeOrigin": true
-    }
-  },
+
   "babel": {
     "presets": [
       "@babel/preset-env"

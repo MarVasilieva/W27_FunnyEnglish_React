@@ -11,9 +11,10 @@ export class WordStore {
   fetchProjects() {
     this.words = [];
     this.state = "pending";
-    debugger;
+
     fetchWords().then(
       action("fetchSuccess", (projects) => {
+        debugger;
         this.words = projects;
         this.state = "done";
       }),
@@ -24,5 +25,5 @@ export class WordStore {
   }
 }
 const fetchWords = () => {
-  return fetch("/api/words");
+  return fetch("/api/words").then((result) => result.json());
 };

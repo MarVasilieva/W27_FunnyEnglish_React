@@ -1,5 +1,5 @@
 import React from "react";
-import { observer, inject } from "mobx-react";
+import { observer } from "mobx-react";
 
 const WordRow = ({
   item,
@@ -11,7 +11,6 @@ const WordRow = ({
   onChangeWord,
   onChangeTranscription,
   onChangeTranslation,
-  wordStore,
 }) => {
   const handleSave = (id, newWord, newTranscription, newTranslation) => {
     onSave(id, newWord, newTranscription, newTranslation);
@@ -126,4 +125,4 @@ const WordRow = ({
   );
 };
 
-export default inject(["wordStore"])(observer(WordRow));
+export default WordRow;

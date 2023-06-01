@@ -3,13 +3,12 @@ import "./styles.scss";
 import React, { useState, useEffect, useRef } from "react";
 import { observer } from "mobx-react-lite"; // Or "mobx-react".
 import { WordStore } from "../store/WordStore";
-const WordStore1 = new WordStore();
-export const Wordcard = observer(({ wordStore } = { wordStore: WordStore }) => {
+
+export const Wordcard = (props) => {
   const [isShowButton, setButton] = useState(true);
 
   useEffect(() => {
-    debugger;
-    WordStore1.fetchWords(); // Вызов метода fetchWords из MobX-хранилища при монтировании компонента
+    // Вызов метода fetchWords из MobX-хранилища при монтировании компонента
   });
 
   useEffect(() => {
@@ -19,7 +18,7 @@ export const Wordcard = observer(({ wordStore } = { wordStore: WordStore }) => {
   const handleButtonClick = () => {
     setButton(!isShowButton);
     if (isShowButton) {
-      wordStore.setCount(wordStore.count + 1);
+      // setCount(count + 1);
     }
   };
 
@@ -31,11 +30,11 @@ export const Wordcard = observer(({ wordStore } = { wordStore: WordStore }) => {
 
   return (
     <div className="word">
-      {/* <div className="wordTitle">
-        <h1>{words[0]?.english}</h1>{" "}
+      <div className="wordTitle">
+        <h1>{props.english}</h1>{" "}
       </div>
       <div className="wordTranscription">
-        <h3>{words[0]?.transcription}</h3>{" "}
+        <h3>{props.transcription}</h3>{" "}
       </div>
       <div className="wordButton">
         {isShowButton ? (
@@ -43,9 +42,9 @@ export const Wordcard = observer(({ wordStore } = { wordStore: WordStore }) => {
             Проверить
           </button>
         ) : (
-          <h3 onClick={handleButtonClick}>{words[0]?.russian}</h3>
+          <h3 onClick={handleButtonClick}>{props.russian}</h3>
         )}
-      </div> */}
+      </div>
     </div>
   );
-});
+};
